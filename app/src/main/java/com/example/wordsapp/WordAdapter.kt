@@ -16,6 +16,7 @@
 package com.example.wordsapp
 
 import android.content.Context
+import android.net.Uri
 import android.os.Build
 import android.view.LayoutInflater
 import android.view.View
@@ -81,6 +82,14 @@ class WordAdapter(private val letterId: String, context: Context) :
 
         // Set the text of the WordViewHolder
         holder.button.text = item
+
+        // chama setOnClickListener() no botão.
+        // URI é para a consulta da pesquisa. Ao chamar o método parse()
+        // para criar um URI usando uma String, usa-se a formatação de
+        // string para que a palavra  seja anexada ao SEARCH_PREFIX.
+        holder.button.setOnClickListener{
+            val queryUrl: Uri = Uri.parse("${DetailActivity.SEARCH_PREFIX}${item}")
+        }
 
     }
     // Setup custom accessibility delegate to set the text read with

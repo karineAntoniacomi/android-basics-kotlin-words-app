@@ -15,6 +15,7 @@
  */
 package com.example.wordsapp
 
+import android.content.Intent
 import android.os.Build
 import android.view.LayoutInflater
 import android.view.View
@@ -62,6 +63,20 @@ class LetterAdapter :
     override fun onBindViewHolder(holder: LetterViewHolder, position: Int) {
         val item = list.get(position)
         holder.button.text = item.toString()
+
+        // configura o onClickListener como holder.button
+        holder.button.setOnClickListener {
+            // acessa referência ao context
+            val context = holder.itemView.context
+            // Cria Intent transmitindo o contexto e o nome da classe da atividade de destino
+            val intent = Intent(context, DetailActivity::class.java)
+            // Chama método putExtra, transmitindo "letter" como 1o argumento e texto do botão como 2o
+            // putExtra() aceita String, e não qlqr CharSequence -> chama toString()
+            // modificada para usar a Constante LETTER
+            intent.putExtra(DetailActivity.LETTER, holder.button.text.toString())
+            // Chame startActivity() no objeto de contexto, transmite a intent
+            context.startActivity(intent)
+        }
     }
 
     // Setup custom accessibility delegate to set the text read with

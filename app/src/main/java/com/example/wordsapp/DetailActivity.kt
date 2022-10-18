@@ -24,9 +24,19 @@ import com.example.wordsapp.databinding.ActivityDetailBinding
 
 class DetailActivity : AppCompatActivity() {
 
+    // objeto complementar para organizar constantes e torná-las acessíveis fora da DetailActivity
+    // palavra-chave companion: significa que o objeto está associado à classe DetailActivity
+    companion object {
+        const val LETTER = "letter"
+        // Cria intent implícita
+        //mesmo URL base é usado para todas as pesquisas = constante
+        const val SEARCH_PREFIX = "https://www.google.com/search?q="
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+        // Recupera um objeto de ligação que permite fzer referência a views por id
         // Retrieve a binding object that allows you to refer to views by id name
         // Names are converted from snake case to camel case.
         // For example, a View with the id word_one is referenced as binding.wordOne
@@ -36,7 +46,15 @@ class DetailActivity : AppCompatActivity() {
         // Retrieve the LETTER from the Intent extras
         // intent.extras.getString returns String? (String or null)
         // so toString() guarantees that the value will be a String
-        val letterId = "A"
+        val letterId = intent?.extras?.getString(LETTER).toString()
+        // a propriedade intent é de qualquer atividade, e mantém uma
+        // referência à intent usada para iniciar a atividade.
+        // a propriedade "extras" é do tipo Bundle e fornece uma maneira
+        // de acessar todos os extras transmitidos à intent.
+        // O Ponto de interrogação nas propriedades intent e extras é porque
+        // elas são anuláveis (podem ter um valor ou não / Null).
+        // Se a intent for null, o app não tentará acessar a propriedade "extras".
+        // Se a extras for nula, o código não tentará chamar getString().
 
         val recyclerView = binding.recyclerView
         recyclerView.layoutManager = LinearLayoutManager(this)
