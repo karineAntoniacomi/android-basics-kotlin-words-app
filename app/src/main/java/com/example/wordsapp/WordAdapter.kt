@@ -16,6 +16,7 @@
 package com.example.wordsapp
 
 import android.content.Context
+import android.content.Intent
 import android.net.Uri
 import android.os.Build
 import android.view.LayoutInflater
@@ -89,6 +90,13 @@ class WordAdapter(private val letterId: String, context: Context) :
         // string para que a palavra  seja anexada ao SEARCH_PREFIX.
         holder.button.setOnClickListener{
             val queryUrl: Uri = Uri.parse("${DetailActivity.SEARCH_PREFIX}${item}")
+            // inicializando novo objeto intent
+            // ACTION_VIEW é uma intent generica que aceita URI
+            val intent = Intent(Intent.ACTION_VIEW, queryUrl)
+
+            // instruindo o sistema a iniciar outro app
+            // chamando startActivity() e transmitindo a intent.
+            context.startActivity(intent)
         }
 
     }
